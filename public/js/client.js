@@ -39,7 +39,7 @@ Addon.initialize({
       title: '🏢 Данные о проверке организации',
       content: {
         type: 'iframe',
-        url: bodySectionContext.signUrl('.public/views/check-result.html'),
+        url: bodySectionContext.signUrl('./public/views/check-result.html'),
         height: 400,
       }
     }];
