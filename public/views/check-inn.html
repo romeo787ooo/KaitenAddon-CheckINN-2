@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="utf-8">
+ <script src="https://files.kaiten.ru/web-sdk/v1.min.js"></script>
+ <link href="https://files.kaiten.ru/web-sdk/v1.min.css" rel="stylesheet" />
+ <style>
+   .loader {
+     display: none;
+     text-align: center;
+     padding: 10px;
+   }
+   
+   .loader-spinner {
+     display: inline-block;
+     width: 20px;
+     height: 20px;
+     border: 3px solid var(--addon-background-level2);
+     border-radius: 50%;
+     border-top-color: var(--addon-primary-color);
+     animation: spin 1s linear infinite;
+   }
+
+   @keyframes spin {
+     to { transform: rotate(360deg); }
+   }
+
+   .results {
+     display: none;
+     margin-top: 20px;
+     border-top: 1px solid var(--addon-divider);
+     padding-top: 16px;
+   }
+
+   .info-grid {
+     display: grid;
+     gap: 8px;
+   }
+
+   .registry-link a {
+     color: var(--addon-primary-color);
+     text-decoration: none;
+   }
+
+   .registry-link a:hover {
+     text-decoration: underline;
+   }
+ </style>
+</head>
+<body>
+ <div id="checkInnContent" style="padding: 16px;">
+   <label for="innInput" class="addon-input-label">Введите ИНН компании</label>
+   <input type="text" id="innInput" class="addon-input" style="width: 100%; margin: 8px 0;" 
+          placeholder="Например: 7710878000">
+   
+   <div id="loader" class="loader">
+     <div class="loader-spinner"></div>
+     <div style="margin-top: 8px;">Проверка ИНН...</div>
+   </div>
+
+   <!-- Секция с результатами -->
+   <div id="results" class="results"></div>
+
+   <!-- Секция с ссылками на реестры -->
+   <div id="registryLinks" style="display: none; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--addon-divider);">
+     <div style="font-size: 14px; color: var(--addon-text-secondary-color); margin-bottom: 12px;">
+       Проверка в реестрах:
+     </div>
+     <div class="registry-link" style="margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+       <a href="#" id="classifiedLink" target="_blank">Реестр классифицированных объектов</a>
+       <span id="classifiedCheck" style="display: none; color: green;">✓</span>
+     </div>
+     <div class="registry-link" style="margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+       <a href="#" id="tourOperatorLink" target="_blank">Федеральный реестр Туроператоров</a>
+       <span id="tourOperatorCheck" style="display: none; color: green;">✓</span>
+     </div>
+     <div class="registry-link" style="margin-bottom: 8px;">
+       <a href="https://tourism.gov.ru/agents/" target="_blank">Федеральный реестр Турагентов и Субагентов</a>
+     </div>
+     <div id="agentLinkInput" style="display: none; margin-top: 8px;">
+       <input type="text" class="addon-input" placeholder="Вставьте ссылку на реестр" style="width: 100%;">
+     </div>
+     <button id="completeCheck" class="addon-btn-primary" style="width: 100%; margin-top: 16px; display: none;">
+       Проверка завершена
+     </button>
+   </div>
+
+   <!-- Секция с копированием результата -->
+   <div id="copyResult" style="display: none; margin-top: 16px; text-align: center;">
+     <button id="copyText" class="addon-btn-primary" style="width: 100%;">
+       Скопировать результат проверки
+     </button>
+     <div style="margin-top: 8px; color: var(--addon-text-secondary-color); font-size: 12px;">
+       Нажмите на кнопку и вставьте скопированный текст в Описание к карточке!
+     </div>
+   </div>
+
+   <!-- Кнопки управления -->
+   <div id="buttons" style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px;">
+     <button id="cancel" class="addon-btn">Закрыть</button>
+     <button id="check" class="addon-btn-primary">Проверить</button>
+   </div>
+ </div>
+ <script src="../js/check-inn.js"></script>
+</body>
+</html>
