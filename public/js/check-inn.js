@@ -17,23 +17,22 @@ let checks = {
 iframe.fitSize('#checkInnContent');
 
 // Подгрузка ИНН
-async function loadInnFromCard() {
+iframe.render(async () => {
   try {
-    const card = await iframe.getCard();
-    const properties = await iframe.getCardProperties('customProperties');
+    // Получаем данные карточки через контекст
+    const cardProps = await iframe.getCardProperties('customProperties');
+    
     // Ищем поле с ID 398033
-    const innField = properties?.find(prop => prop.id === 398033);
+    const innField = cardProps?.find(prop => prop.id === 398033);
     
     if (innField?.value) {
       innInput.value = innField.value;
+      iframe.fitSize('#checkInnContent');
     }
   } catch (error) {
     console.error('Error loading INN:', error);
   }
-}
-
-// Вызываем функцию загрузки
-loadInnFromCard();
+});
 
 function setLoading(isLoading) {
   loader.style.display = isLoading ? 'block' : 'none';
