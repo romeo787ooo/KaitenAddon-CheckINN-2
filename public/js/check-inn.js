@@ -132,14 +132,14 @@ function renderResults(data) {
 }
 
 cancelButton.addEventListener('click', () => {
-  .closePopup();
+  iframe.closePopup();
 });
 
 checkButton.addEventListener('click', async () => {
   const inn = innInput.value.trim();
   
   if (!inn || inn.length < 10) {
-    .showSnackbar('Введите корректный ИНН', 'warning');
+    iframe.showSnackbar('Введите корректный ИНН', 'warning');
     return;
   }
 
@@ -157,7 +157,7 @@ checkButton.addEventListener('click', async () => {
 
     if (data.error) {
       setLoading(false);
-      .showSnackbar(`Ошибка: ${data.error}`, 'error');
+      iframe.showSnackbar(`Ошибка: ${data.error}`, 'error');
       return;
     }
 
@@ -166,7 +166,7 @@ checkButton.addEventListener('click', async () => {
 
   } catch (error) {
     console.error('Error details:', error);
-    .showSnackbar('Ошибка при проверке ИНН. Проверьте консоль для деталей.', 'error');
+    iframe.showSnackbar('Ошибка при проверке ИНН. Проверьте консоль для деталей.', 'error');
     setLoading(false);
   }
 });
@@ -187,8 +187,8 @@ document.getElementById('completeCheck').addEventListener('click', async () => {
   });
   
   // Закрываем попап
-  .closePopup();
-  .showSnackbar('Результаты проверки сохранены в карточке', 'success');
+  iframe.closePopup();
+  iframe.showSnackbar('Результаты проверки сохранены в карточке', 'success');
 });
 
 innInput.addEventListener('keypress', (e) => {
