@@ -123,12 +123,12 @@ function renderResults(data) {
     document.getElementById('agentLinkInput').style.display = 'block';
   });
 
-  // Обработчик ввода ссылки
+// Обработчик ввода ссылки
   document.querySelector('#agentLinkInput input').addEventListener('change', (e) => {
     checks.agentLink = e.target.value;
   });
 
-  .fitSize('#checkInnContent');
+  iframe.fitSize('#checkInnContent');
 }
 
 cancelButton.addEventListener('click', () => {
