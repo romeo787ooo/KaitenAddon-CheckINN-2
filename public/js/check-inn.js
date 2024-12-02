@@ -181,7 +181,7 @@ document.getElementById('completeCheck').addEventListener('click', async () => {
   };
 
   // Сохраняем данные проверки и статус
-  await .setData('card', 'private', {
+  await iframe.setData('card', 'private', {
     innChecked: true,
     innCheckData: checkData
   });
