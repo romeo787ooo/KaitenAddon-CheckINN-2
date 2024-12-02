@@ -16,6 +16,26 @@ let checks = {
 
 iframe.fitSize('#checkInnContent');
 
+// Подгрузка ИНН
+iframe.getContext().then(async (context) => {
+  try {
+    // Получаем карточку
+    const card = await iframe.getCard();
+    // Получаем пользовательские поля
+    const properties = await iframe.getCardProperties('customProperties');
+    // Ищем поле с ID 398033
+    const innField = properties?.find(prop => prop.id === 398033);
+    
+    if (innField?.value) {
+      innInput.value = innField.value;
+    }
+  } catch (error) {
+    console.error('Error loading INN:', error);
+  }
+});
+
+// Подгрузка ИНН
+
 function setLoading(isLoading) {
   loader.style.display = isLoading ? 'block' : 'none';
   checkButton.disabled = isLoading;
@@ -108,18 +128,18 @@ function renderResults(data) {
     checks.agentLink = e.target.value;
   });
 
-  iframe.fitSize('#checkInnContent');
+  .fitSize('#checkInnContent');
 }
 
 cancelButton.addEventListener('click', () => {
-  iframe.closePopup();
+  .closePopup();
 });
 
 checkButton.addEventListener('click', async () => {
   const inn = innInput.value.trim();
   
   if (!inn || inn.length < 10) {
-    iframe.showSnackbar('Введите корректный ИНН', 'warning');
+    .showSnackbar('Введите корректный ИНН', 'warning');
     return;
   }
 
@@ -137,7 +157,7 @@ checkButton.addEventListener('click', async () => {
 
     if (data.error) {
       setLoading(false);
-      iframe.showSnackbar(`Ошибка: ${data.error}`, 'error');
+      .showSnackbar(`Ошибка: ${data.error}`, 'error');
       return;
     }
 
@@ -146,7 +166,7 @@ checkButton.addEventListener('click', async () => {
 
   } catch (error) {
     console.error('Error details:', error);
-    iframe.showSnackbar('Ошибка при проверке ИНН. Проверьте консоль для деталей.', 'error');
+    .showSnackbar('Ошибка при проверке ИНН. Проверьте консоль для деталей.', 'error');
     setLoading(false);
   }
 });
@@ -161,14 +181,14 @@ document.getElementById('completeCheck').addEventListener('click', async () => {
   };
 
   // Сохраняем данные проверки и статус
-  await iframe.setData('card', 'private', {
+  await .setData('card', 'private', {
     innChecked: true,
     innCheckData: checkData
   });
   
   // Закрываем попап
-  iframe.closePopup();
-  iframe.showSnackbar('Результаты проверки сохранены в карточке', 'success');
+  .closePopup();
+  .showSnackbar('Результаты проверки сохранены в карточке', 'success');
 });
 
 innInput.addEventListener('keypress', (e) => {
