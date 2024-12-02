@@ -17,11 +17,9 @@ let checks = {
 iframe.fitSize('#checkInnContent');
 
 // Подгрузка ИНН
-iframe.getContext().then(async (context) => {
+async function loadInnFromCard() {
   try {
-    // Получаем карточку
     const card = await iframe.getCard();
-    // Получаем пользовательские поля
     const properties = await iframe.getCardProperties('customProperties');
     // Ищем поле с ID 398033
     const innField = properties?.find(prop => prop.id === 398033);
@@ -32,9 +30,10 @@ iframe.getContext().then(async (context) => {
   } catch (error) {
     console.error('Error loading INN:', error);
   }
-});
+}
 
-// Подгрузка ИНН
+// Вызываем функцию загрузки
+loadInnFromCard();
 
 function setLoading(isLoading) {
   loader.style.display = isLoading ? 'block' : 'none';
