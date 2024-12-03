@@ -18,18 +18,20 @@ let checks = {
 iframe.fitSize('#checkInnContent');
 
 // Подгрузка ИНН
+// И добавьте вызов функции после iframe.render:
 iframe.render(async () => {
   try {
-    // Получаем данные карточки через контекст
     const cardProps = await iframe.getCardProperties('customProperties');
-    
-    // Ищем поле с ID 398033
     const innField = cardProps?.find(prop => prop.id === 398033);
     
     if (innField?.value) {
       innInput.value = innField.value;
-      iframe.fitSize('#checkInnContent');
     }
+    
+    // Показываем отладочную информацию
+    await showDebugInfo();
+    
+    iframe.fitSize('#checkInnContent');
   } catch (error) {
     console.error('Error loading INN:', error);
   }
@@ -225,22 +227,3 @@ async function showDebugInfo() {
     debugContent.textContent = `Ошибка при получении данных: ${error.message}`;
   }
 }
-
-// И добавьте вызов функции после iframe.render:
-iframe.render(async () => {
-  try {
-    const cardProps = await iframe.getCardProperties('customProperties');
-    const innField = cardProps?.find(prop => prop.id === 398033);
-    
-    if (innField?.value) {
-      innInput.value = innField.value;
-    }
-    
-    // Показываем отладочную информацию
-    await showDebugInfo();
-    
-    iframe.fitSize('#checkInnContent');
-  } catch (error) {
-    console.error('Error loading INN:', error);
-  }
-});
