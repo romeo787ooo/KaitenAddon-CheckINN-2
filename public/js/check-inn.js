@@ -37,6 +37,32 @@ iframe.render(async () => {
   }
 });
 
+// Функция для отображения отладочной информации
+async function showDebugInfo() {
+  try {
+    const card = await iframe.getCard();
+    const props = await iframe.getCardProperties('customProperties');
+    const allData = await iframe.getAllData();
+
+    let debugText = 'Данные карточки:\n';
+    debugText += `ID карточки: ${card.id}\n`;
+    debugText += `Название карточки: ${card.title}\n\n`;
+    
+    debugText += 'Пользовательские поля:\n';
+    props.forEach(prop => {
+      debugText += `ID: ${prop.id}, Название: ${prop.name}, Значение: ${prop.value}\n`;
+    });
+
+    debugText += '\nСохраненные данные:\n';
+    debugText += JSON.stringify(allData, null, 2);
+
+    debugContent.textContent = debugText;
+    iframe.fitSize('#checkInnContent');
+  } catch (error) {
+    debugContent.textContent = `Ошибка при получении данных: ${error.message}`;
+  }
+}
+
 function setLoading(isLoading) {
   loader.style.display = isLoading ? 'block' : 'none';
   checkButton.disabled = isLoading;
@@ -197,33 +223,3 @@ innInput.addEventListener('keypress', (e) => {
     checkButton.click();
   }
 });
-
-//Отладочная информация
-// В начале файла после определения переменных добавьте:
-const debugContent = document.getElementById('debugContent');
-
-// Функция для отображения отладочной информации
-async function showDebugInfo() {
-  try {
-    const card = await iframe.getCard();
-    const props = await iframe.getCardProperties('customProperties');
-    const allData = await iframe.getAllData();
-
-    let debugText = 'Данные карточки:\n';
-    debugText += `ID карточки: ${card.id}\n`;
-    debugText += `Название карточки: ${card.title}\n\n`;
-    
-    debugText += 'Пользовательские поля:\n';
-    props.forEach(prop => {
-      debugText += `ID: ${prop.id}, Название: ${prop.name}, Значение: ${prop.value}\n`;
-    });
-
-    debugText += '\nСохраненные данные:\n';
-    debugText += JSON.stringify(allData, null, 2);
-
-    debugContent.textContent = debugText;
-    iframe.fitSize('#checkInnContent');
-  } catch (error) {
-    debugContent.textContent = `Ошибка при получении данных: ${error.message}`;
-  }
-}
