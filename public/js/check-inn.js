@@ -39,29 +39,29 @@ iframe.render(async () => {
 
 // Функция для отображения отладочной информации
 async function showDebugInfo() {
-  try {
-    const card = await iframe.getCard();
-    const props = await iframe.getCardProperties('customProperties');
-    const allData = await iframe.getAllData();
+ try {
+   const card = await iframe.getCard();
+   const props = await iframe.getCardProperties('customProperties');
+   const allData = await iframe.getAllData();
 
-    let debugText = 'Данные карточки:\n';
-    debugText += `ID карточки: ${card.id}\n`;
-    debugText += `Название карточки: ${card.title}\n\n`;
-    
-    debugText += 'Пользовательские поля:\n';
-    props.forEach(prop => {
-      debugText += `ID: ${prop.id}, Название: ${prop.name}, Значение: ${prop.value}\n`;
-    });
+   let debugText = '=== RAW DATA ===\n\n';
+   
+   debugText += '=== getCard() ===\n';
+   debugText += JSON.stringify(card, null, 2) + '\n\n';
+   
+   debugText += '=== getCardProperties() ===\n';
+   debugText += JSON.stringify(props, null, 2) + '\n\n';
+   
+   debugText += '=== getAllData() ===\n';
+   debugText += JSON.stringify(allData, null, 2);
 
-    debugText += '\nСохраненные данные:\n';
-    debugText += JSON.stringify(allData, null, 2);
-
-    debugContent.textContent = debugText;
-    iframe.fitSize('#checkInnContent');
-  } catch (error) {
-    debugContent.textContent = `Ошибка при получении данных: ${error.message}`;
-  }
+   debugContent.textContent = debugText;
+   iframe.fitSize('#checkInnContent');
+ } catch (error) {
+   debugContent.textContent = `Error getting data: ${error.message}`;
+ }
 }
+
 
 function setLoading(isLoading) {
   loader.style.display = isLoading ? 'block' : 'none';
