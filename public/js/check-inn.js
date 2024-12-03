@@ -6,6 +6,7 @@ const cancelButton = document.getElementById('cancel');
 const loader = document.getElementById('loader');
 const buttons = document.getElementById('buttons');
 const results = document.getElementById('results');
+const debugContent = document.getElementById('debugContent');
 
 let companyData = null;
 let checks = {
