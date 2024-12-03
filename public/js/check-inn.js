@@ -18,14 +18,16 @@ let checks = {
 iframe.fitSize('#checkInnContent');
 
 // Подгрузка ИНН
-// И добавьте вызов функции после iframe.render:
 iframe.render(async () => {
   try {
     const cardProps = await iframe.getCardProperties('customProperties');
-    const innField = cardProps?.find(prop => prop.id === 398033);
+    
+    // Ищем поле с ИНН по id 398033
+    const innField = cardProps.find(prop => prop.property.id === 398033);
     
     if (innField?.value) {
       innInput.value = innField.value;
+      console.log('ИНН загружен:', innField.value);
     }
     
     // Показываем отладочную информацию
