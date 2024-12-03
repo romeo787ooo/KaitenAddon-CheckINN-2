@@ -194,3 +194,52 @@ innInput.addEventListener('keypress', (e) => {
     checkButton.click();
   }
 });
+
+//Отладочная информация
+// В начале файла после определения переменных добавьте:
+const debugContent = document.getElementById('debugContent');
+
+// Функция для отображения отладочной информации
+async function showDebugInfo() {
+  try {
+    const card = await iframe.getCard();
+    const props = await iframe.getCardProperties('customProperties');
+    const allData = await iframe.getAllData();
+
+    let debugText = 'Данные карточки:\n';
+    debugText += `ID карточки: ${card.id}\n`;
+    debugText += `Название карточки: ${card.title}\n\n`;
+    
+    debugText += 'Пользовательские поля:\n';
+    props.forEach(prop => {
+      debugText += `ID: ${prop.id}, Название: ${prop.name}, Значение: ${prop.value}\n`;
+    });
+
+    debugText += '\nСохраненные данные:\n';
+    debugText += JSON.stringify(allData, null, 2);
+
+    debugContent.textContent = debugText;
+    iframe.fitSize('#checkInnContent');
+  } catch (error) {
+    debugContent.textContent = `Ошибка при получении данных: ${error.message}`;
+  }
+}
+
+// И добавьте вызов функции после iframe.render:
+iframe.render(async () => {
+  try {
+    const cardProps = await iframe.getCardProperties('customProperties');
+    const innField = cardProps?.find(prop => prop.id === 398033);
+    
+    if (innField?.value) {
+      innInput.value = innField.value;
+    }
+    
+    // Показываем отладочную информацию
+    await showDebugInfo();
+    
+    iframe.fitSize('#checkInnContent');
+  } catch (error) {
+    console.error('Error loading INN:', error);
+  }
+});
