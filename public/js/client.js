@@ -8,7 +8,7 @@ Addon.initialize({
         return buttonContext.openPopup({
           type: 'iframe',
           title: 'Проверка ИНН',
-          url: 'public/views/check-inn.html',
+          url: 'public/views/check-inn.html',  // убрали ./
           height: 215,
           width: 700
         });
@@ -39,7 +39,7 @@ Addon.initialize({
       title: '🏢 Данные о проверке организации',
       content: {
         type: 'iframe',
-        url: bodySectionContext.signUrl('public/views/check-result.html'),
+        url: bodySectionContext.signUrl('public/views/check-result.html'),  // убрали ./
         height: 400,
       }
     }];
