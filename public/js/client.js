@@ -1,4 +1,3 @@
-// public/js/client.js
 Addon.initialize({
   'card_buttons': async (cardButtonsContext) => {
     const buttons = [];
@@ -9,8 +8,7 @@ Addon.initialize({
         return buttonContext.openPopup({
           type: 'iframe',
           title: 'Проверка ИНН',
-          // *** ИЗМЕНИТЕ ЭТУ СТРОКУ ***
-          url: '/public/views/check-inn.html', // Изменено на корневой относительный путь
+          url: './public/views/check-inn.html',
           height: 215,
           width: 700
         });
@@ -21,7 +19,7 @@ Addon.initialize({
   },
   'card_facade_badges': async (context) => {
     const isChecked = await context.getData('card', 'private', 'innChecked');
-
+    
     if (isChecked) {
       return {
         text: '✅ ИНН проверен',
@@ -32,7 +30,7 @@ Addon.initialize({
   },
   'card_body_section': async (bodySectionContext) => {
     const checkData = await bodySectionContext.getData('card', 'private', 'innCheckData');
-
+    
     if (!checkData) {
       return [];
     }
@@ -41,8 +39,7 @@ Addon.initialize({
       title: '🏢 Данные о проверке организации',
       content: {
         type: 'iframe',
-        // *** ИЗМЕНИТЕ ЭТУ СТРОКУ ***
-        url: bodySectionContext.signUrl('/public/views/check-result.html'), // Изменено на корневой относительный путь
+        url: bodySectionContext.signUrl('./public/views/check-result.html'),
         height: 400,
       }
     }];
