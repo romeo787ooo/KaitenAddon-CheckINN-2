@@ -39,7 +39,7 @@ Addon.initialize({
     title: '🏢 Данные о проверке организации',
     content: {
       type: 'iframe',
-      url: 'https://romeo787ooo.github.io/KaitenAddon-CheckINN-2/public/views/check-result.html',
+      url: bodySectionContext.signUrl('./public/views/check-result.html'), // добавили ./ обратно
       height: 400,
     }
   }];
