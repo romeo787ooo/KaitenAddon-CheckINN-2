@@ -28,28 +28,19 @@ Addon.initialize({
     }
     return null;
   },
-  'card_body_section': async (bodySectionContext) => {
+'card_body_section': async (bodySectionContext) => {
   const checkData = await bodySectionContext.getData('card', 'private', 'innCheckData');
   
   if (!checkData) {
     return [];
   }
 
-  const { companyData, checkDate } = checkData;
-  
   return [{
     title: '🏢 Данные о проверке организации',
     content: {
-      type: 'text', // Изменили с 'html' на 'text'
-      text: `Дата проверки: ${new Date(checkDate).toLocaleString()}
-
-Название: ${companyData.title || '-'}
-ИНН: ${companyData.inn || '-'}
-КПП: ${companyData.kpp || '-'}
-ОГРН: ${companyData.ogrn || '-'}
-Статус: ${companyData.status || '-'}
-Адрес: ${companyData.address || '-'}
-Руководитель: ${companyData.managementFIO || '-'}`
+      type: 'iframe',
+      url: 'https://romeo787ooo.github.io/KaitenAddon-CheckINN-2/public/views/check-result.html',
+      height: 400,
     }
   }];
 }
