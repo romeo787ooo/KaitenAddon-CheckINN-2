@@ -29,19 +29,18 @@ Addon.initialize({
     return null;
   },
   'card_body_section': async (bodySectionContext) => {
-    const checkData = await bodySectionContext.getData('card', 'private', 'innCheckData');
-    
-    if (!checkData) {
-      return [];
-    }
-
-    return [{
-      title: '🏢 Данные о проверке организации',
-      content: {
-        type: 'iframe',
-        url: bodySectionContext.signUrl('.public/views/check-result.html'),  // убрали ./
-        height: 400,
-      }
-    }];
+  const checkData = await bodySectionContext.getData('card', 'private', 'innCheckData');
+  
+  if (!checkData) {
+    return [];
   }
-});
+
+  return [{
+    title: '🏢 Данные о проверке организации',
+    content: {
+      type: 'iframe',
+      url: 'https://romeo787ooo.github.io/KaitenAddon-CheckINN-2/public/views/check-result.html', // абсолютный URL
+      height: 400,
+    }
+  }];
+}
