@@ -35,12 +35,31 @@ Addon.initialize({
     return [];
   }
 
+  const { companyData, checkDate } = checkData;
+  
   return [{
     title: '🏢 Данные о проверке организации',
     content: {
-      type: 'iframe',
-      url: 'https://romeo787ooo.github.io/KaitenAddon-CheckINN-2/public/views/check-result.html', // абсолютный URL
-      height: 400,
+      type: 'html',
+      html: `
+        <div style="padding: 16px; font-family: Roboto;">
+          <div style="margin-bottom: 12px; color: #666; font-size: 12px;">
+            Дата проверки: ${new Date(checkDate).toLocaleString()}
+          </div>
+          <div style="font-size: 16px; font-weight: 500; margin-bottom: 16px;">
+            ${companyData.title || '-'}
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div><strong>ИНН:</strong> ${companyData.inn || '-'}</div>
+            <div><strong>КПП:</strong> ${companyData.kpp || '-'}</div>
+            <div><strong>ОГРН:</strong> ${companyData.ogrn || '-'}</div>
+            <div><strong>Статус:</strong> ${companyData.status || '-'}</div>
+          </div>
+          <div style="margin-top: 12px;">
+            <strong>Адрес:</strong> ${companyData.address || '-'}
+          </div>
+        </div>
+      `
     }
   }];
 }
